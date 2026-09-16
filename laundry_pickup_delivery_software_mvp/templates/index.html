@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block title %}
+SiyaConnect - Laundry Pickup & Delivery
+{% endblock %}
+
+
+{% block content %}
+
+<section class="hero">
+
+<div>
+
+<h1>
+Fresh Laundry.
+Collected & Delivered.
+</h1>
+
+
+<p>
+SiyaConnect makes laundry simple. 
+Book a pickup, track your order, and receive clean clothes at your doorstep.
+</p>
+
+
+<a class="button" href="{{ url_for('order') }}">
+ Book Pickup
+</a>
+
+
+<a class="button secondary" href="{{ url_for('track') }}">
+ Track Order
+</a>
+
+
+</div>
+
+
+</section>
+
+
+
+
+<div class="dashboard-cards">
+
+
+<div class="card">
+
+<h3>
+ Doorstep Collection
+</h3>
+
+<p>
+We collect your laundry from your home or workplace.
+</p>
+
+</div>
+
+
+
+
+<div class="card">
+
+<h3>
+ Professional Cleaning
+</h3>
+
+<p>
+Your clothes are handled with care.
+</p>
+
+</div>
+
+
+
+
+<div class="card">
+
+<h3>
+ Fast Delivery
+</h3>
+
+<p>
+Clean laundry delivered back to you.
+</p>
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="card">
+
+
+<h2>
+How SiyaConnect Works.
+</h2>
+
+
+<p>
+- Book your pickup online
+</p>
+
+<p>
+- Driver collects your laundry
+</p>
+
+<p>
+- Laundry team cleans and prepares it
+</p>
+
+<p>
+- Delivery returns it to you
+</p>
+
+
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,199 @@
+@app.route("/staff")
+def staff():
+
+    if "username" not in session:
+        return redirect(url_for("login"))
+
+    role = session["role"]
+
+    conn = db()
+
+    if role == "Admin":
+
+        orders = conn.execute(
+            """
+            SELECT * FROM orders
+            ORDER BY id DESC
+            """
+        ).fetchall()
+
+
+    elif role == "Driver":
+
+        orders = conn.execute(
+            """
+            SELECT * FROM orders
+            WHERE status IN (
+                'Pickup Requested',
+                'Collected'
+            )
+            ORDER BY pickup_date,pickup_time
+            """
+        ).fetchall()
+
+
+    elif role == "Laundry":
+
+        orders = conn.execute(
+            """
+            SELECT * FROM orders
+            WHERE status IN (
+                'Collected',
+                'At Laundry'
+            )
+            ORDER BY id DESC
+            """
+        ).fetchall()
+
+
+    elif role == "Delivery":
+
+        orders = conn.execute(
+            """
+            SELECT * FROM orders
+            WHERE status IN (
+                'Ready for Delivery',
+                'Out for Delivery'
+            )
+            ORDER BY id DESC
+            """
+        ).fetchall()
+
+
+    else:
+        orders = []
+
+
+    conn.close()
+
+
+    return render_template(
+        "staff.html",
+        orders=orders,
+        role=role
+    )@app.route("/update_status/<int:order_id>", methods=["POST"])
+def update_status(order_id):
+
+    if "username" not in session:
+        return redirect(url_for("login"))
+
+    role = session.get("role")
+    new_status = request.form.get("status")
+
+    allowed = {
+
+        "Driver": [
+            "Collected"
+        ],
+
+        "Laundry": [
+            "At Laundry",
+            "Ready for Delivery"
+        ],
+
+        "Delivery": [
+            "Out for Delivery",
+            "Delivered"
+        ],
+
+        "Admin": [
+            "Pickup Requested",
+            "Collected",
+            "At Laundry",
+            "Ready for Delivery",
+            "Out for Delivery",
+            "Delivered"
+        ]
+    }
+
+
+    if new_status not in allowed.get(role, []):
+        return "Permission denied", 403
+
+
+    conn = db()
+
+    conn.execute(
+        """
+        UPDATE orders
+        SET status = ?
+        WHERE id = ?
+        """,
+        (new_status, order_id)
+    )
+
+    conn.commit()
+    conn.close()
+
+
+    return redirect(url_for("staff")){% for order in orders %}
+
+<div class="order-card">
+
+    <h3>Order #{{ order.id }}</h3>
+
+    <p>Status: {{ order.status }}</p>
+
+
+    {% if role == "Driver" and order.status == "Pickup Requested" %}
+
+    <form method="POST" action="/update_status/{{ order.id }}">
+        <button name="status" value="Collected">
+            Mark Collected
+        </button>
+    </form>
+
+    {% endif %}
+
+
+
+    {% if role == "Laundry" and order.status == "Collected" %}
+
+    <form method="POST" action="/update_status/{{ order.id }}">
+        <button name="status" value="At Laundry">
+            Received at Laundry
+        </button>
+    </form>
+
+    {% endif %}
+
+
+
+    {% if role == "Laundry" and order.status == "At Laundry" %}
+
+    <form method="POST" action="/update_status/{{ order.id }}">
+        <button name="status" value="Ready for Delivery">
+            Ready for Delivery
+        </button>
+    </form>
+
+    {% endif %}
+
+
+
+    {% if role == "Delivery" and order.status == "Ready for Delivery" %}
+
+    <form method="POST" action="/update_status/{{ order.id }}">
+        <button name="status" value="Out for Delivery">
+            Start Delivery
+        </button>
+    </form>
+
+    {% endif %}
+
+
+
+    {% if role == "Delivery" and order.status == "Out for Delivery" %}
+
+    <form method="POST" action="/update_status/{{ order.id }}">
+        <button name="status" value="Delivered">
+            Mark Delivered
+        </button>
+    </form>
+
+    {% endif %}
+
+
+</div>
+
+{% endfor %}

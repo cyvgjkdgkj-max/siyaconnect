@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}SiyaConnect Admin Login{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+  <div>
+
+    <p class="eyebrow">SIYACONNECT MANAGEMENT SYSTEM</p>
+
+    <h1>Admin Dashboard</h1>
+
+    <p class="lead">
+      Manage laundry orders, pickups, deliveries, and customer requests
+      from one central dashboard.
+    </p>
+
+    <form class="form compact" method="get">
+
+      <label>
+        Admin Key
+        <input 
+          name="key" 
+          type="password" 
+          placeholder="Enter admin key"
+          required
+        >
+      </label>
+
+      <button class="button">
+        Open Dashboard
+      </button>
+
+    </form>
+
+  </div>
+</section>
+
+{% endblock %}

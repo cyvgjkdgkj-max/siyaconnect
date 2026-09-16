@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block title %}
+Delivery Dashboard
+{% endblock %}
+
+
+{% block content %}
+
+<h1> Delivery Dashboard</h1>
+
+<p class="muted">
+Orders ready for customer delivery
+</p>
+
+
+<div class="dashboard-cards">
+
+
+{% for order in orders %}
+
+<div class="card">
+
+<h3>
+{{ order.order_no }}
+</h3>
+
+
+<p>
+Customer:
+{{ order.customer_name }}
+</p>
+
+
+<p>
+Address:
+{{ order.address }}
+</p>
+
+
+<p>
+Phone:
+{{ order.phone }}
+</p>
+
+
+<p>
+Status:
+
+<strong>
+{{ order.status }}
+</strong>
+
+</p>
+
+
+
+{% if order.status == "Ready for Delivery" %}
+
+
+<form method="POST" action="{{ url_for('delivery_status', order_id=order.id) }}">
+
+<input type="hidden" name="status" value="Out for Delivery">
+
+
+<button class="button">
+ Start Delivery
+</button>
+
+
+</form>
+
+
+{% elif order.status == "Out for Delivery" %}
+
+
+<form method="POST" action="{{ url_for('delivery_status', order_id=order.id) }}">
+
+<input type="hidden" name="status" value="Delivered">
+
+
+<button class="button">
+ Mark Delivered
+</button>
+
+
+</form>
+
+
+{% endif %}
+
+
+</div>
+
+
+{% else %}
+
+
+<div class="card">
+
+<h3>
+No Delivery Orders
+</h3>
+
+<p>
+Waiting for laundry completion.
+</p>
+
+</div>
+
+
+{% endfor %}
+
+
+</div>
+
+
+{% endblock %}

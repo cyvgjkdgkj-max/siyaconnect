@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% block title %}SiyaConnect | Track Order{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+  <div>
+
+    <p class="eyebrow">SIYACONNECT ORDER TRACKING</p>
+
+    <h1>Track Your Laundry</h1>
+
+    <p class="lead">
+      Enter your order number below to check the progress of your laundry collection and delivery.
+    </p>
+
+  </div>
+</section>
+
+
+<form method="post" class="form compact">
+
+  <label>
+    Order Number
+
+    <input 
+      name="order_no"
+      placeholder="Example: LD-260813-A1B2"
+      required>
+
+  </label>
+
+
+  <button class="button">
+    Check Status
+  </button>
+
+</form>
+
+
+
+{% if order %}
+
+<div class="card">
+
+  <h2>
+    Order {{ order["order_no"] }}
+  </h2>
+
+
+  <div class="summary">
+
+    <p>
+      <strong>Customer:</strong>
+      {{ order["customer_name"] }}
+    </p>
+
+
+    <p>
+      <strong>Service:</strong>
+      {{ order["service"] }}
+    </p>
+
+
+    <p>
+      <strong>Pickup:</strong>
+      {{ order["pickup_date"] }}
+      at
+      {{ order["pickup_time"] }}
+    </p>
+
+
+    <p>
+      <strong>Current Status:</strong>
+
+      <span class="status">
+        {{ order["status"] }}
+      </span>
+
+    </p>
+
+  </div>
+
+
+  <hr>
+
+
+  <h3>Laundry Progress</h3>
+
+
+  <div class="cards">
+
+    <div class="card">
+      <h3>1. Pickup Requested</h3>
+      <p>
+        Your collection request has been received.
+      </p>
+    </div>
+
+
+    <div class="card">
+      <h3>2. Collected</h3>
+      <p>
+        Laundry collected from customer.
+      </p>
+    </div>
+
+
+    <div class="card">
+      <h3>3. Cleaning</h3>
+      <p>
+        Laundry is being processed.
+      </p>
+    </div>
+
+
+    <div class="card">
+      <h3>4. Delivery</h3>
+      <p>
+        Laundry will be returned to you.
+      </p>
+    </div>
+
+  </div>
+
+
+</div>
+
+{% endif %}
+
+
+{% endblock %}

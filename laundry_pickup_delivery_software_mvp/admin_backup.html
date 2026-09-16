@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<div class="admin-head">
+  <div><h1>Orders</h1><p class="muted">Manage collection and delivery status.</p></div>
+  <a class="button secondary" href="{{ url_for('order') }}">New Order</a>
+</div>
+
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Order</th><th>Customer</th><th>Pickup</th><th>Service</th><th>Price</th><th>Status</th><th>Print</th>
+</tr>
+</thead>
+<tbody>
+{% for o in orders %}
+<tr>
+<td><strong>{{ o["order_no"] }}</strong></td>
+<td>{{ o["customer_name"] }}<br><span class="muted">{{ o["phone"] }}</span></td>
+<td>{{ o["pickup_date"] }}<br>{{ o["pickup_time"] }}</td>
+<td>{{ o["service"] }}</td>
+<td>R{{ "%.2f"|format(o["price"]) }}</td>
+<td>
+<form method="post" action="{{ url_for('update_status', order_id=o['id']) }}">
+<input type="hidden" name="key" value="{{ admin_key }}">
+<select name="status" onchange="this.form.submit()">
+{% for s in ["Pickup Requested","Collected","At Laundry","Ready for Delivery","Out for Delivery","Delivered","Cancelled"] %}
+<option value="{{ s }}" {% if o["status"] == s %}selected{% endif %}>{{ s }}</option>
+{% endfor %}
+</select>
+</form>
+</td>
+<td><a target="_blank" href="{{ url_for('print_order', order_no=o['order_no']) }}">Print</a></td>
+</tr>
+{% else %}
+<tr><td colspan="7">No orders yet.</td></tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+{% endblock %}

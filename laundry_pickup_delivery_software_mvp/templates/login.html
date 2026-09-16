@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}
+SiyaConnect Login
+{% endblock %}
+
+
+{% block content %}
+
+<div class="login-container">
+
+    <div class="login-card">
+
+        <div class="login-logo">
+            
+        </div>
+
+        <h1>SiyaConnect</h1>
+
+<p class="muted">
+    Login to manage your laundry orders
+</p>
+
+
+        <form method="POST">
+
+            <label>
+                Username
+                <input 
+                name="username" 
+                placeholder="Enter username"
+                required>
+            </label>
+
+
+            <label>
+                Password
+                <input 
+                name="password"
+                type="password"
+                placeholder="Enter password"
+                required>
+            </label>
+
+
+            <button class="button login-btn">
+                Login
+            </button>
+
+
+        </form>
+<p style="text-align:center; margin-top:20px;">
+
+    New customer?
+
+    <a href="{{ url_for('register') }}">
+        Create Account
+    </a>
+
+</p>
+
+        <div class="login-help">
+
+            <p>
+                Admin: admin / admin123
+            </p>
+
+            <p>
+                Driver: driver1 / driver123
+            </p>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+{% endblock %}

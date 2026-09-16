@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block title %}
+Customer Dashboard
+{% endblock %}
+
+
+{% block content %}
+
+<div class="welcome-box">
+
+    <h1>
+        Welcome, {{ full_name }} 
+    </h1>
+
+    <p class="muted">
+        Manage your laundry orders from here.
+    </p>
+
+</div>
+
+
+<div class="dashboard-cards">
+
+
+    <div class="card">
+
+        <h3>Total Orders</h3>
+
+        <h2>
+            {{ total_orders }}
+        </h2>
+
+    </div>
+
+
+
+    <div class="card">
+
+        <h3>In Progress</h3>
+
+        <h2>
+            {{ active_orders }}
+        </h2>
+
+    </div>
+
+
+
+    <div class="card">
+
+        <h3>Completed</h3>
+
+        <h2>
+            {{ completed_orders }}
+        </h2>
+
+    </div>
+
+
+</div>
+
+
+
+<div class="orders-table">
+
+<h2>
+My Laundry Orders
+</h2>
+
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Order No</th>
+<th>Service</th>
+<th>Pickup Date</th>
+<th>Price</th>
+<th>Status</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+
+{% for order in orders %}
+
+<div class="order-card">
+
+<h3>
+{{ order.order_no }}
+</h3>
+
+<p>
+{{ order.service }}
+</p>
+
+<p>
+Status:
+<span class="status">
+{{ order.status }}
+</span>
+</p>
+
+
+<a class="button"
+href="{{ url_for('track', order_no=order.order_no) }}">
+Track Order
+</a>
+
+</div>
+
+{% endfor %}
+
+
+</tbody>
+
+</table>
+
+
+</div>
+
+
+
+<a href="{{ url_for('order') }}"
+class="button">
+
++ Book New Pickup
+
+</a>
+
+
+
+{% endblock %}
