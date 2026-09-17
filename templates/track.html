@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block title %}
+Track Order
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="form-container">
+
+<h1>
+Track Your Laundry
+</h1>
+
+<p class="muted">
+Enter your order number to see progress.
+</p>
+
+
+<form method="POST">
+
+
+<label>
+Order Number
+</label>
+
+
+<input 
+type="text"
+name="order_no"
+placeholder="LD-260911-XXXX"
+required
+>
+
+
+<button class="submit-btn">
+Track Order
+</button>
+
+
+</form>
+
+
+</div>
+
+
+
+{% if order %}
+
+
+<div class="order-summary">
+
+
+<h2>
+Order {{ order.order_no }}
+</h2>
+
+
+<p>
+<strong>Service:</strong>
+{{ order.service }}
+</p>
+
+
+<p>
+<strong>Pickup Date:</strong>
+{{ order.pickup_date }}
+</p>
+
+
+<p>
+<strong>Current Status:</strong>
+</p>
+
+
+<span class="status">
+{{ order.status }}
+</span>
+
+
+</div>
+
+
+
+<div class="timeline">
+
+{% set steps = [
+"Pickup Requested",
+"Collected",
+"At Laundry",
+"Ready for Delivery",
+"Out for Delivery",
+"Delivered"
+] %}
+
+{% if order.status in steps %}
+    {% set current = steps.index(order.status) %}
+{% else %}
+    {% set current = -1 %}
+{% endif %}
+
+{% for step in steps %}
+
+<div class="timeline-item {% if loop.index0 <= current %}active{% endif %}">
+
+    <div class="icon">
+
+        {% if loop.index0 <= current %}
+            ✓
+        {% else %}
+            ○
+        {% endif %}
+
+    </div>
+
+    <div class="step-text">
+        {{ step }}
+    </div>
+
+</div>
+
+{% endfor %}
+
+{% endif %}
+
+{% endblock %}

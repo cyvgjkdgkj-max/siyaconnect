@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block title %}
+Collection Slip
+{% endblock %}
+
+
+{% block content %}
+
+<div class="card print-area">
+
+
+<h1>
+ SiyaConnect
+</h1>
+
+<h2>
+Laundry Collection Slip
+</h2>
+
+
+<hr>
+
+
+<p>
+<strong>Order Number:</strong>
+{{ order.order_no }}
+</p>
+
+
+<p>
+<strong>Customer:</strong>
+{{ order.customer_name }}
+</p>
+
+
+<p>
+<strong>Phone:</strong>
+{{ order.phone }}
+</p>
+
+
+<p>
+<strong>Address:</strong>
+{{ order.address }}
+</p>
+
+
+<p>
+<strong>Pickup Date:</strong>
+{{ order.pickup_date }}
+</p>
+
+
+<p>
+<strong>Pickup Time:</strong>
+{{ order.pickup_time }}
+</p>
+
+
+<p>
+<strong>Service:</strong>
+{{ order.service }}
+</p>
+
+
+<p>
+<strong>Estimated KG:</strong>
+{{ order.estimated_kg }}
+</p>
+
+
+<p>
+<strong>Price:</strong>
+R{{ order.price }}
+</p>
+
+
+<p>
+<strong>Status:</strong>
+{{ order.status }}
+</p>
+
+
+<hr>
+
+
+<br>
+
+
+<div class="signature-box">
+
+Customer Signature:
+
+<br><br><br>
+
+________________________
+
+
+</div>
+
+
+
+<div class="signature-box">
+
+Driver Signature:
+
+<br><br><br>
+
+________________________
+
+
+</div>
+
+
+<button onclick="window.print()" class="button">
+
+🖨 Print Slip
+
+</button>
+
+
+</div>
+
+
+{% endblock %}

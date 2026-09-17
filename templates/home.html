@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+
+{% block title %}SiyaConnect - Laundry Pickup & Delivery{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+
+    <div class="eyebrow">
+        PROFESSIONAL LAUNDRY SERVICE
+    </div>
+
+    <h1>
+        Clean Clothes.<br>
+        Delivered To Your Door.
+    </h1>
+
+    <p>
+        SiyaConnect makes laundry simple. 
+        We collect your clothes, take care of the cleaning,
+        and deliver them back fresh and ready.
+    </p>
+
+
+    <div class="hero-buttons">
+
+        <a class="button" href="{{ url_for('order') }}">
+            Book Pickup
+        </a>
+
+        <a class="button secondary" href="{{ url_for('track') }}">
+            Track Order
+        </a>
+
+    </div>
+
+</section>
+
+
+
+<section class="services">
+
+<h2>Our Services</h2>
+
+<div class="dashboard-cards">
+
+<div class="card">
+<h3> Wash & Fold</h3>
+<p>
+Professional washing and folding for your everyday clothing.
+</p>
+</div>
+
+
+<div class="card">
+<h3> Ironing Service</h3>
+<p>
+Freshly ironed clothes ready for work, school and events.
+</p>
+</div>
+
+
+<div class="card">
+<h3> Pickup & Delivery</h3>
+<p>
+We collect and return your laundry at your preferred location.
+</p>
+</div>
+
+
+<div class="card">
+<h3> Quality Care</h3>
+<p>
+Your clothes are handled with care from collection to delivery.
+</p>
+</div>
+
+</div>
+
+</section>
+
+
+
+
+<section class="how-it-works">
+
+<h2>How It Works</h2>
+
+<div class="dashboard-cards">
+
+<div class="card">
+<h3>1. Place Order</h3>
+<p>
+Book your laundry pickup online.
+</p>
+</div>
+
+
+<div class="card">
+<h3>2. We Collect</h3>
+<p>
+Our team collects your laundry.
+</p>
+</div>
+
+
+<div class="card">
+<h3>3. We Clean</h3>
+<p>
+Your laundry is professionally prepared.
+</p>
+</div>
+
+
+<div class="card">
+<h3>4. We Deliver</h3>
+<p>
+Clean laundry arrives back at your door.
+</p>
+</div>
+
+</div>
+
+</section>
+
+
+
+
+<section class="services">
+
+<h2>Why Choose SiyaConnect?</h2>
+
+<div class="dashboard-cards">
+
+<div class="card">
+<h3> Convenient</h3>
+<p>
+Save time by letting us handle your laundry.
+</p>
+</div>
+
+
+<div class="card">
+<h3> Reliable</h3>
+<p>
+Track your order from pickup to delivery.
+</p>
+</div>
+
+
+<div class="card">
+<h3> Customer Focused</h3>
+<p>
+We put quality service first.
+</p>
+</div>
+
+
+</div>
+
+</section>
+
+
+
+
+<section class="cta">
+
+<h2>
+Ready to experience easier laundry?
+</h2>
+
+<p>
+Book your first pickup today.
+</p>
+
+<a class="button" href="{{ url_for('order') }}">
+Start Your Order
+</a>
+
+</section>
+
+
+{% endblock %}

@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+
+{% block title %}SiyaConnect | Book Pickup{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+  <div>
+
+    <p class="eyebrow">SIYACONNECT PICKUP SERVICE</p>
+
+    <h1>Schedule Your Laundry Collection</h1>
+
+    <p class="lead">
+      Complete the form below and we will collect your laundry,
+      process your order, and deliver it back to your doorstep.
+    </p>
+
+  </div>
+</section>
+
+
+<form method="post" class="form">
+
+  <h2>Customer Details</h2>
+
+  <label>
+    Customer Name
+    <input 
+      name="customer_name"
+      placeholder="Enter full name"
+      required>
+  </label>
+
+
+  <label>
+    Phone / WhatsApp Number
+    <input 
+      name="phone"
+      placeholder="e.g. 072 xxx xxxx"
+      required>
+  </label>
+
+
+  <label>
+    Pickup Address
+    <textarea 
+      name="address"
+      placeholder="Enter collection address"
+      required></textarea>
+  </label>
+
+
+
+  <h2>Pickup Schedule</h2>
+
+  <div class="grid2">
+
+    <label>
+      Pickup Date
+      <input 
+        type="date"
+        name="pickup_date"
+        min="{{ today }}"
+        required>
+    </label>
+
+
+    <label>
+      Pickup Time
+      <input 
+        type="time"
+        name="pickup_time"
+        required>
+    </label>
+
+  </div>
+
+
+
+  <h2>Laundry Details</h2>
+
+  <label>
+    Service Type
+
+    <select name="service">
+
+      <option>Wash & Fold</option>
+
+      <option>
+        Wash & Fold + Ironing
+      </option>
+
+      <option>
+        Duvet / Blanket Cleaning
+      </option>
+
+      <option>
+        Curtains Cleaning
+      </option>
+
+      <option>
+        Express Service
+      </option>
+
+      <option>
+        Special Request
+      </option>
+
+    </select>
+
+  </label>
+
+
+
+  <div class="grid2">
+
+    <label>
+      Estimated Weight (kg)
+
+      <input 
+        type="number"
+        step="0.1"
+        name="estimated_kg"
+        value="0">
+    </label>
+
+
+    <label>
+      Estimated Price (R)
+
+      <input 
+        type="number"
+        step="0.01"
+        name="price"
+        value="0">
+    </label>
+
+  </div>
+
+
+
+  <h2>Payment</h2>
+
+  <label>
+
+    Payment Method
+
+    <select name="payment_method">
+
+      <option>
+        Cash on Delivery
+      </option>
+
+      <option>
+        Cash on Pickup
+      </option>
+
+      <option>
+        EFT
+      </option>
+
+      <option>
+        Online Payment
+      </option>
+
+    </select>
+
+  </label>
+
+
+
+  <label>
+
+    Additional Notes
+
+    <textarea 
+      name="notes"
+      placeholder="Special instructions, gate code, stains, etc."></textarea>
+
+  </label>
+
+
+
+  <button class="button" type="submit">
+    Confirm Pickup Request
+  </button>
+
+
+</form>
+
+{% endblock %}

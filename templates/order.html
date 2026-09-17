@@ -1,0 +1,233 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Book Laundry Pickup
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class="form-container">
+
+
+<h1>
+ Book Laundry Pickup
+</h1>
+
+
+<p>
+Schedule your laundry collection and we will come to you.
+</p>
+
+
+
+<form method="POST">
+
+
+
+<p><strong>Customer:</strong> {{ session.full_name }}</p>
+
+
+
+<label>
+Phone Number
+</label>
+
+<input 
+type="text"
+name="phone"
+placeholder="082..."
+required>
+
+
+
+<label>
+Pickup Address
+</label>
+
+<textarea
+name="address"
+placeholder="House number, street, area"
+required></textarea>
+
+
+
+<label>
+Pickup Date
+</label>
+
+<input
+type="date"
+name="pickup_date"
+value="{{ today }}"
+required>
+
+
+
+<label>
+Pickup Time
+</label>
+
+<input
+type="time"
+name="pickup_time"
+required>
+
+
+
+<label>
+Laundry Service
+</label>
+
+<select name="service" id="service" required>
+
+    <option value="">
+        Select Service
+    </option>
+
+    <option value="Wash & Fold">
+        Wash & Fold
+    </option>
+
+    <option value="Ironing">
+        Ironing
+    </option>
+
+    <option value="Dry Cleaning">
+        Dry Cleaning
+    </option>
+
+    <option value="Express Laundry">
+        Express Laundry
+    </option>
+
+</select>
+
+
+
+<label>
+Estimated Weight (KG)
+</label>
+
+
+<input
+type="number"
+id="kg"
+name="estimated_kg"
+placeholder="Example: 10"
+min="1">
+
+
+
+<label>
+Price
+</label>
+
+<input
+type="number"
+id="price"
+name="price"
+readonly>
+
+
+
+<label>
+Payment Method
+</label>
+
+
+<select name="payment_method">
+
+<option>
+Cash
+</option>
+
+<option>
+EFT
+</option>
+
+<option>
+Card
+</option>
+
+</select>
+
+
+
+<label>
+Extra Notes
+</label>
+
+
+<textarea
+name="notes"
+placeholder="Special instructions">
+</textarea>
+
+
+
+<button class="submit-btn">
+Confirm Pickup
+</button>
+
+
+
+</form>
+
+
+</div>
+
+
+
+<script>
+
+window.onload = function(){
+
+    const service = document.getElementById("service");
+    const kg = document.getElementById("kg");
+    const price = document.getElementById("price");
+
+
+    function calculatePrice(){
+
+        let rates = {
+
+            "Wash & Fold": 25,
+            "Ironing": 15,
+            "Dry Cleaning": 40,
+            "Express Laundry": 50
+
+        };
+
+
+        let selectedService = service.value;
+        let weight = Number(kg.value);
+
+
+        if(selectedService && weight){
+
+            price.value = rates[selectedService] * weight;
+
+        }
+        else{
+
+            price.value = "";
+
+        }
+
+    }
+
+
+    service.addEventListener("change", calculatePrice);
+
+    kg.addEventListener("input", calculatePrice);
+
+
+};
+
+</script>
+
+{% endblock %}

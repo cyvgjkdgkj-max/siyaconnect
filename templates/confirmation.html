@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Order Confirmation
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class="confirmation-box">
+
+
+<h1>
+Order Confirmed!
+</h1>
+
+
+<p>
+Thank you for choosing <strong>SiyaConnect</strong>.
+Your laundry pickup request has been received.
+</p>
+
+
+
+<div class="order-number">
+
+<p>
+Your Order Number:
+</p>
+
+<h2>
+{{ order.order_no }}
+</h2>
+
+</div>
+
+
+
+<div class="details">
+
+
+<p>
+<strong>Name:</strong>
+{{ order.customer_name }}
+</p>
+
+
+<p>
+<strong>Service:</strong>
+{{ order.service }}
+</p>
+
+
+<p>
+<strong>Estimated Weight:</strong>
+{{ order.estimated_kg }} KG
+</p>
+
+
+<p>
+<strong>Pickup Date:</strong>
+{{ order.pickup_date }}
+</p>
+
+
+<p>
+<strong>Pickup Time:</strong>
+{{ order.pickup_time }}
+</p>
+
+
+<p>
+<strong>Amount:</strong>
+R{{ "%.2f"|format(order.price) }}
+</p>
+
+
+<p>
+<strong>Payment Method:</strong>
+{{ order.payment_method }}
+</p>
+
+
+<p>
+<strong>Status:</strong>
+
+<span class="status">
+{{ order.status }}
+</span>
+
+</p>
+
+
+</div>
+
+
+
+
+<a class="button" href="{{ url_for('track', order_no=order.order_no) }}">
+Track My Order
+</a>
+
+
+
+<a class="button secondary" href="{{ url_for('order') }}">
+Book Another Pickup
+</a>
+
+
+
+</div>
+
+
+{% endblock %}

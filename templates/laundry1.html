@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}
+Laundry Dashboard
+{% endblock %}
+
+{% block content %}
+
+<h1>Laundry Dashboard</h1>
+
+<p class="muted">
+Orders waiting for laundry processing.
+</p>
+
+
+{% if orders %}
+
+<div class="dashboard-cards">
+
+{% for order in orders %}
+
+<div class="card">
+
+<h3>{{ order.order_no }}</h3>
+
+<p>
+Customer:
+{{ order.customer_name }}
+</p>
+
+<p>
+Phone:
+{{ order.phone }}
+</p>
+
+<p>
+Status:
+<strong>{{ order.status }}</strong>
+</p>
+
+{% if order.status == "Collected" %}
+
+<form method="POST" action="{{ url_for('laundry_status', order_id=order.id) }}">
+
+<input type="hidden" name="status" value="At Laundry">
+
+<button class="button">
+Start Laundry
+</button>
+
+</form>
+
+{% elif order.status == "At Laundry" %}
+
+<form method="POST" action="{{ url_for('laundry_status', order_id=order.id) }}">
+
+<input type="hidden" name="status" value="Ready for Delivery">
+
+<button class="button">
+Ready for Delivery
+</button>
+
+</form>
+
+{% endif %}
+
+
+
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="card">
+
+<h3>No Laundry Orders</h3>
+
+<p>
+Waiting for collected orders from driver.
+</p>
+
+</div>
+
+{% endif %}
+
+
+{% endblock %}

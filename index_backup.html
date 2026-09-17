@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}FreshDrop Laundry | Pickup & Delivery{% endblock %}
+{% block content %}
+<section class="hero">
+  <div>
+    <p class="eyebrow">LAUNDRY PICKUP & DELIVERY</p>
+    <h1>We collect it. Your laundry partner washes it. We bring it back.</h1>
+    <p class="lead">A simple convenience service for customers who want clean, folded laundry without leaving home.</p>
+    <a class="button" href="{{ url_for('order') }}">Book a Pickup</a>
+    <a class="button secondary" href="{{ url_for('track') }}">Track Order</a>
+  </div>
+</section>
+
+<section class="cards">
+  <div class="card"><h3>1. Book</h3><p>Customer chooses a pickup date and gives their address.</p></div>
+  <div class="card"><h3>2. Collect</h3><p>You collect the laundry and issue an order number.</p></div>
+  <div class="card"><h3>3. Wash</h3><p>A partner laundry handles washing and folding.</p></div>
+  <div class="card"><h3>4. Deliver</h3><p>You return the clean laundry to the customer.</p></div>
+</section>
+{% endblock %}
