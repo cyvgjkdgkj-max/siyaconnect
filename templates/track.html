@@ -14,13 +14,14 @@ Track Order
 Track Your Laundry
 </h1>
 
+
 <p class="muted">
 Enter your order number to see progress.
 </p>
 
 
-<form method="POST">
 
+<form method="POST">
 
 <label>
 Order Number
@@ -42,8 +43,8 @@ Track Order
 
 </form>
 
-
 </div>
+
 
 
 
@@ -71,7 +72,7 @@ Order {{ order.order_no }}
 
 
 <p>
-<strong>Current Status:</strong>
+<strong>Status:</strong>
 </p>
 
 
@@ -84,7 +85,9 @@ Order {{ order.order_no }}
 
 
 
+
 <div class="timeline">
+
 
 {% set steps = [
 "Pickup Requested",
@@ -95,34 +98,61 @@ Order {{ order.order_no }}
 "Delivered"
 ] %}
 
+
+
 {% if order.status in steps %}
-    {% set current = steps.index(order.status) %}
+
+{% set current = steps.index(order.status) %}
+
 {% else %}
-    {% set current = -1 %}
+
+{% set current = -1 %}
+
 {% endif %}
+
+
+
 
 {% for step in steps %}
 
+
 <div class="timeline-item {% if loop.index0 <= current %}active{% endif %}">
 
-    <div class="icon">
 
-        {% if loop.index0 <= current %}
-            ✓
-        {% else %}
-            ○
-        {% endif %}
+<div class="icon">
 
-    </div>
+{% if loop.index0 <= current %}
 
-    <div class="step-text">
-        {{ step }}
-    </div>
+✓
+
+{% else %}
+
+○
+
+{% endif %}
 
 </div>
 
+
+
+<div class="step-text">
+
+{{ step }}
+
+</div>
+
+
+</div>
+
+
 {% endfor %}
 
+
+</div>
+
+
 {% endif %}
+
+
 
 {% endblock %}

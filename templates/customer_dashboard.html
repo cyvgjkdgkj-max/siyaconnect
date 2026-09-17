@@ -62,12 +62,16 @@ Customer Dashboard
 
 
 
-<div class="orders-table">
+<div class="orders-section">
 
 <h2>
 My Laundry Orders
 </h2>
 
+
+<!-- Desktop Orders Table -->
+
+<div class="orders-table desktop-orders">
 
 <table>
 
@@ -89,24 +93,99 @@ My Laundry Orders
 
 <tbody>
 
+{% for order in orders %}
+
+<tr>
+
+<td>
+{{ order.order_no }}
+</td>
+
+
+<td>
+{{ order.service }}
+</td>
+
+
+<td>
+{{ order.pickup_date }}
+</td>
+
+
+<td>
+R{{ order.price }}
+</td>
+
+
+<td>
+
+<span class="status">
+{{ order.status }}
+</span>
+
+</td>
+
+
+<td>
+
+<a class="button"
+href="{{ url_for('track', order_no=order.order_no) }}">
+Track Order
+</a>
+
+</td>
+
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+
+
+<!-- Mobile Order Cards -->
+
+<div class="mobile-orders">
 
 {% for order in orders %}
 
 <div class="order-card">
 
 <h3>
-{{ order.order_no }}
+Order {{ order.order_no }}
 </h3>
 
+
 <p>
+<strong>Service:</strong>
 {{ order.service }}
 </p>
 
+
 <p>
-Status:
+<strong>Pickup Date:</strong>
+{{ order.pickup_date }}
+</p>
+
+
+<p>
+<strong>Price:</strong>
+R{{ order.price }}
+</p>
+
+
+<p>
+<strong>Status:</strong>
+
 <span class="status">
 {{ order.status }}
 </span>
+
 </p>
 
 
@@ -115,22 +194,18 @@ href="{{ url_for('track', order_no=order.order_no) }}">
 Track Order
 </a>
 
+
 </div>
 
 {% endfor %}
 
-
-</tbody>
-
-</table>
+</div>
 
 
 </div>
 
-
-
 <a href="{{ url_for('order') }}"
-class="button">
+class="button pickup-btn">
 
 + Book New Pickup
 

@@ -1195,3 +1195,532 @@ tr:hover {
 .muted{
     color:#666;
 }
+
+/* ================= BETTER MOBILE RESPONSIVE ================= */
+
+@media (max-width: 600px) {
+
+    body {
+        overflow-x: hidden;
+    }
+
+    .topbar {
+        padding: 15px;
+    }
+
+    .brand h2 {
+        font-size: 22px;
+    }
+
+    nav {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+    }
+
+    nav a {
+        margin-left: 0;
+        text-align: center;
+    }
+
+
+    .public-content,
+    .content {
+        padding: 15px;
+    }
+
+
+    .hero {
+        padding: 25px 20px;
+        min-height: auto;
+        border-radius: 18px;
+    }
+
+
+    .hero h1 {
+        font-size: 30px;
+    }
+
+
+    .hero p {
+        font-size: 16px;
+    }
+
+
+    .button {
+        width: 100%;
+        text-align: center;
+        margin-right: 0;
+    }
+
+
+    .card {
+        padding: 20px;
+    }
+
+
+    .card h2 {
+        font-size: 28px;
+    }
+
+
+    .form-container,
+    .confirmation-box {
+        padding: 25px 15px;
+        margin: 20px auto;
+        border-radius: 18px;
+    }
+
+
+    .submit-btn {
+        font-size: 16px;
+    }
+
+
+    /* Mobile table scroll */
+    .orders-table {
+        padding: 15px;
+        overflow-x: auto;
+    }
+
+
+    table {
+        min-width: 650px;
+    }
+
+
+    /* Tracking */
+    .timeline {
+        margin-top: 25px;
+    }
+
+
+    .timeline-item .icon {
+        width:45px;
+        height:45px;
+        font-size:18px;
+    }
+
+
+    .step-text {
+        font-size:15px;
+        margin-left:12px;
+    }
+
+
+    .action-btn {
+        width:100%;
+        text-align:center;
+        margin-top:10px;
+    }
+
+}/* ================= SIYACONNECT APP MOBILE MODE ================= */
+
+@media(max-width:600px){
+
+    .topbar {
+        position: sticky;
+        top:0;
+        z-index:1000;
+        padding:12px 15px;
+    }
+
+
+    nav {
+        flex-direction:row;
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:10px;
+    }
+
+
+    nav a {
+        font-size:14px;
+        background:rgba(255,255,255,0.15);
+        padding:8px 12px;
+        border-radius:20px;
+    }
+
+
+    .layout {
+        min-height:auto;
+    }
+
+
+    .sidebar {
+        min-height:auto;
+        padding:15px;
+        border-radius:0 0 20px 20px;
+    }
+
+
+    .sidebar h3 {
+        text-align:center;
+    }
+
+
+    .sidebar a {
+        display:inline-block;
+        padding:8px 12px;
+        background:#006d77;
+        border-radius:20px;
+        margin:5px;
+    }
+
+
+    .content {
+        padding:15px;
+    }
+
+
+    .welcome-box {
+        padding:20px;
+    }
+
+
+    .stat-card {
+        flex-direction:column;
+        text-align:center;
+    }
+
+
+    .dashboard-cards {
+        gap:15px;
+    }
+
+
+}/* ================= CUSTOMER MOBILE ORDERS ================= */
+
+.mobile-orders {
+    display:none;
+}
+
+
+.order-card {
+
+    background:white;
+
+    padding:20px;
+
+    border-radius:18px;
+
+    margin-top:15px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,0.08);
+
+}
+
+
+.order-card h3 {
+
+    color:#006d77;
+
+    margin-bottom:15px;
+
+}
+
+
+.order-card p {
+
+    margin:10px 0;
+
+}
+
+
+
+@media(max-width:600px){
+
+
+.desktop-orders {
+    display:none;
+}
+
+
+.mobile-orders {
+    display:block;
+}
+
+
+.orders-section h2 {
+
+    margin-bottom:15px;
+
+}
+
+
+.order-card .button {
+
+    margin-top:15px;
+
+}
+
+
+}/* ================= LOGIN PAGE ================= */
+
+.login-container {
+
+    min-height:70vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:20px;
+
+}
+
+
+.login-card {
+
+    background:white;
+
+    width:100%;
+
+    max-width:420px;
+
+    padding:40px;
+
+    border-radius:25px;
+
+    box-shadow:0 15px 35px rgba(0,0,0,0.12);
+
+    text-align:center;
+
+}
+
+
+.login-card h1 {
+
+    color:#006d77;
+
+    margin-bottom:10px;
+
+}
+
+
+.login-card label {
+
+    display:block;
+
+    text-align:left;
+
+    margin-top:20px;
+
+    font-weight:bold;
+
+}
+
+
+.login-card input {
+
+    width:100%;
+
+    padding:16px;
+
+    margin-top:8px;
+
+    border:1px solid #ddd;
+
+    border-radius:14px;
+
+    font-size:16px;
+
+}
+
+
+.login-btn {
+
+    width:100%;
+
+    margin-top:25px;
+
+    background:#006d77;
+
+    color:white;
+
+    border:none;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+}
+
+
+
+.login-btn:hover {
+
+    background:#023047;
+
+}
+
+
+
+@media(max-width:600px){
+
+
+.login-card {
+
+    padding:25px 20px;
+
+}
+
+
+.login-card h1 {
+
+    font-size:30px;
+
+}
+
+
+.login-card input {
+
+    height:55px;
+
+}
+
+
+.login-btn {
+
+    height:55px;
+
+}
+
+
+}/* ================= MOBILE TRACKING ================= */
+
+@media(max-width:600px){
+
+
+.order-summary {
+
+    padding:20px;
+
+}
+
+
+.order-summary h2 {
+
+    font-size:24px;
+
+}
+
+
+.timeline {
+
+    margin-top:30px;
+
+}
+
+
+.timeline-item {
+
+    align-items:flex-start;
+
+}
+
+
+.icon {
+
+    flex-shrink:0;
+
+}
+
+
+.step-text {
+
+    font-size:16px;
+
+}
+
+
+}/* ================= CUSTOMER DASHBOARD ACTIONS ================= */
+
+
+.orders-section {
+
+    margin-top:40px;
+
+}
+
+
+.orders-section h2 {
+
+    color:#006d77;
+
+    margin-bottom:25px;
+
+}
+
+
+.order-card {
+
+    margin-bottom:20px;
+
+}
+
+
+.order-card .button,
+.pickup-btn {
+
+    display:block;
+
+    width:100%;
+
+    text-align:center;
+
+    background:#006d77;
+
+    color:white;
+
+    padding:15px;
+
+    border-radius:30px;
+
+    margin-top:20px;
+
+    font-weight:bold;
+
+    text-decoration:none;
+
+}
+
+
+.order-card .button:hover,
+.pickup-btn:hover {
+
+    background:#023047;
+
+}
+
+
+.pickup-btn {
+
+    max-width:400px;
+
+    margin:30px auto;
+
+}
+
+
+
+@media(max-width:600px){
+
+    .orders-section {
+
+        margin-top:30px;
+
+    }
+
+
+    .orders-section h2 {
+
+        font-size:24px;
+
+    }
+
+
+}
