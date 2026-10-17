@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}
+Order History
+{% endblock %}
+
+
+{% block content %}
+
+<div class="welcome-box">
+
+<h1>Order History</h1>
+
+<p>
+Order Number: {{ order.order_no }}
+</p>
+
+<p>
+Customer: {{ order.customer_name }}
+</p>
+
+<p>
+Current Status: {{ order.status }}
+</p>
+
+</div>
+
+
+<div class="orders-table">
+
+<table>
+
+<thead>
+<tr>
+
+<th>Status</th>
+<th>Changed At</th>
+
+</tr>
+</thead>
+
+
+<tbody>
+
+{% for item in history %}
+
+<tr>
+
+<td>
+{{ item.status }}
+</td>
+
+<td>
+{{ item.changed_at }}
+</td>
+
+</tr>
+
+
+{% else %}
+
+<tr>
+<td colspan="2">
+No history available.
+</td>
+</tr>
+
+{% endfor %}
+
+
+</tbody>
+
+</table>
+
+</div>
+
+
+<br>
+
+<a href="{{ url_for('customer_dashboard') }}">
+← Back to Dashboard
+</a>
+
+
+{% endblock %}

@@ -10,6 +10,18 @@ app.secret_key = os.environ.get("SECRET_KEY", "change-this-secret-key")
 DB_PATH = os.environ.get("DB_PATH", "laundry.db")
 ADMIN_KEY = os.environ.get("ADMIN_KEY", "admin123")
 
+import os
+
+print("Current folder:", os.getcwd())
+print("Templates folder:", app.template_folder)
+print("Files inside templates:")
+
+templates_path = os.path.join(os.getcwd(), "templates")
+
+if os.path.exists(templates_path):
+    print(os.listdir(templates_path))
+else:
+    print("templates folder DOES NOT EXIST!")
 
 def db():
     conn = sqlite3.connect(DB_PATH)

@@ -1723,4 +1723,179 @@ tr:hover {
     }
 
 
+}/* ================= MOBILE STAFF CARDS ================= */
+
+@media(max-width:800px){
+
+    .table-wrap {
+        overflow-x:auto;
+    }
+
+    table {
+        display:table;
+        min-width:700px;
+    }
+
+}
+
+
+    .card {
+        width:100%;
+        margin-bottom:20px;
+    }
+
+
+    .button {
+        display:block;
+        width:100%;
+        text-align:center;
+        margin-top:15px;
+        padding:14px;
+    }
+
+
+    .content {
+        padding:15px;
+    }
+
+
+    h1 {
+        font-size:28px;
+    }
+
+
+    .dashboard-cards {
+        display:block;
+    }
+
+.mobile-orders {
+    display: grid;
+    gap: 20px;
+}
+
+
+.order-card {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+
+.order-card .button {
+    width: 100%;
+    margin-top: 15px;
+    display: block;
+    text-align: center;
+}
+
+
+@media(max-width:768px){
+
+    .dashboard-cards {
+        grid-template-columns: 1fr;
+    }
+
+
+    .order-card {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+}/* ================= ADMIN ACTION BUTTONS ================= */
+
+td:last-child {
+    text-align: center;
+    vertical-align: middle;
+}
+
+td:last-child form {
+    display: block;
+    margin: 0;
+}
+
+.action-btn {
+    display: inline-block;
+    width: auto;
+    padding: 10px 20px;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    transition: 0.3s ease;
+}
+
+.action-btn.success {
+    background: #2a9d8f;
+    color: white;
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+}
+/* ================= NEW SIDEBAR DESIGN ================= */
+
+.sidebar {
+
+    background: #023047;
+    color:white;
+    padding:30px 20px;
+}
+
+
+.sidebar-brand {
+
+    text-align:center;
+    margin-bottom:30px;
+
+}
+
+
+.sidebar-brand h2 {
+
+    color:white;
+    font-size:26px;
+    margin-bottom:8px;
+
+}
+
+
+.sidebar-brand p {
+
+    color:#00d4ff;
+    font-weight:bold;
+
+}
+
+
+.sidebar a {
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    padding:14px 15px;
+
+    margin-bottom:10px;
+
+    border-radius:12px;
+
+    color:white;
+
+    text-decoration:none;
+
+    transition:0.3s ease;
+
+}
+
+
+.sidebar a:hover {
+
+    background:#006d77;
+
+    transform:translateX(5px);
+
 }

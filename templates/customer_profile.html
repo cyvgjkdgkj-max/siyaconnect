@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+
+{% block title %}
+Customer Profile
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="welcome-box">
+
+<h1>Customer Profile</h1>
+
+<p class="muted">
+View customer details and order history.
+</p>
+
+</div>
+
+
+<div class="dashboard-cards">
+
+
+<div class="card">
+
+<h3>Name</h3>
+
+<p>
+{{ customer.full_name }}
+</p>
+
+</div>
+
+
+
+<div class="card">
+
+<h3>Phone</h3>
+
+<p>
+{{ customer.phone }}
+</p>
+
+</div>
+
+
+
+<div class="card">
+
+<h3>Address</h3>
+
+<p>
+{{ customer.address }}
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>Total Orders</h3>
+
+<p>
+{{ orders|length }}
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>Total Spent</h3>
+
+<p>
+R{{ "%.2f"|format(orders|sum(attribute='price')) }}
+</p>
+
+</div>
+
+
+</div>
+
+
+
+<h2>
+Order History
+</h2>
+
+
+<div class="orders-table">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Order Number</th>
+<th>Service</th>
+<th>Pickup Date</th>
+<th>Price</th>
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+
+{% for order in orders %}
+
+<tr>
+
+<td>
+{{ order.order_no }}
+</td>
+
+
+<td>
+{{ order.service }}
+</td>
+
+
+<td>
+{{ order.pickup_date }}
+</td>
+
+
+<td>
+R{{ "%.2f"|format(order.price) }}
+</td>
+
+
+<td>
+{{ order.status }}
+</td>
+
+
+</tr>
+
+
+{% else %}
+
+<tr>
+
+<td colspan="5">
+No orders found.
+</td>
+
+</tr>
+
+
+{% endfor %}
+
+
+</tbody>
+
+
+</table>
+
+</div>
+
+
+
+<br>
+
+
+<a href="{{ url_for('customers') }}">
+← Back to Customers
+</a>
+
+
+{% endblock %}

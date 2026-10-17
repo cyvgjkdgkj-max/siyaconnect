@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Staff Login
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class="login-container">
+
+
+<div class="login-card">
+
+
+<h1>
+SiyaConnect Staff
+</h1>
+
+
+<p class="muted">
+Login for administrators and team members.
+</p>
+
+
+
+<form method="POST">
+
+
+<label>
+Username
+
+<input 
+name="username"
+placeholder="Staff username"
+required>
+
+</label>
+
+
+
+<label>
+Password
+
+<input 
+type="password"
+name="password"
+placeholder="Password"
+required>
+
+</label>
+
+
+
+<button class="button login-btn">
+
+Login
+
+</button>
+
+
+
+</form>
+
+
+
+</div>
+
+</div>
+
+
+{% endblock %}

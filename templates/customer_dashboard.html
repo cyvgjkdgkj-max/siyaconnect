@@ -59,8 +59,37 @@ Customer Dashboard
 
 
 </div>
+<!-- Notifications Section -->
 
+<div class="notifications">
 
+    <h2> Notifications</h2>
+
+    {% if notifications %}
+
+        {% for note in notifications %}
+
+        <div class="notification-card">
+
+            <p>
+                {{ note.message }}
+            </p>
+
+            <small>
+                {{ note.created_at }}
+            </small>
+
+        </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <p>No notifications yet.</p>
+
+    {% endif %}
+
+</div>
 
 <div class="orders-section">
 
@@ -202,8 +231,8 @@ Track Order
 </div>
 
 
-</div>
 
+</div>
 <a href="{{ url_for('order') }}"
 class="button pickup-btn">
 
@@ -211,6 +240,10 @@ class="button pickup-btn">
 
 </a>
 
-
+{% if orders %}
+<a href="{{ url_for('history', order_no=orders[0].order_no) }}">
+    View Latest Order History
+</a>
+{% endif %}
 
 {% endblock %}

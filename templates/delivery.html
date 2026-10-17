@@ -7,15 +7,37 @@ Delivery Dashboard
 
 {% block content %}
 
-<h1> Delivery Dashboard</h1>
+<h1>Delivery Dashboard</h1>
 
 <p class="muted">
 Orders ready for customer delivery
 </p>
 
-
 <div class="dashboard-cards">
 
+    <div class="card stat-card">
+        <h3>Ready for Delivery</h3>
+        <h2>{{ ready_count }}</h2>
+    </div>
+
+    <div class="card stat-card">
+        <h3>Out for Delivery</h3>
+        <h2>{{ out_count }}</h2>
+    </div>
+
+    <div class="card stat-card">
+        <h3>Delivered</h3>
+        <h2>{{ delivered_count }}</h2>
+    </div>
+
+    <div class="card stat-card">
+        <h3>Driver</h3>
+        <h2>{{ session.full_name }}</h2>
+    </div>
+
+</div>
+
+<div class="dashboard-cards">
 
 {% for order in orders %}
 
@@ -43,6 +65,20 @@ Phone:
 {{ order.phone }}
 </p>
 
+<p>
+    <strong>Service:</strong>
+    {{ order.service }}
+    </p>
+    
+    <p>
+    <strong>Amount:</strong>
+    R{{ "%.2f"|format(order.price) }}
+    </p>
+    
+    <p>
+    <strong>Payment:</strong>
+    {{ order.payment_status }}
+    </p>
 
 <p>
 Status:

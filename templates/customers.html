@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}
+Customers
+{% endblock %}
+
+{% block content %}
+
+<div class="welcome-box">
+
+    <h1>Customer Management TEST</h1>
+
+    <p>
+    Customers loaded: {{ customers|length }}
+    </p>
+
+<p class="muted">
+View registered SiyaConnect customers.
+</p>
+
+</div>
+
+
+<div class="orders-table">
+
+<table>
+
+    <thead>
+        <tr>
+        
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Address</th>
+        <th>Total Orders</th>
+        <th>Total Spent</th>
+        <th>Action</th>
+        
+        </tr>
+        </thead>
+
+
+<tbody>
+
+{% for customer in customers %}
+
+<tr>
+
+<td>{{ customer.full_name }}</td>
+
+<td>{{ customer.phone }}</td>
+
+<td>{{ customer.address }}</td>
+
+<td>{{ customer.total_orders }}</td>
+
+<td>
+R{{ "%.2f"|format(customer.total_spent) }}
+</td>
+
+
+<td>
+    <a href="{{ url_for('customer_profile', user_id=customer.id) }}">
+    View
+    </a>
+    </td>
+</tr>
+
+{% else %}
+
+<tr>
+<td colspan="5">
+No customers found.
+</td>
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+{% endblock %}

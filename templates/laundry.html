@@ -1,117 +1,146 @@
 {% extends "base.html" %}
 
-{% block title %}Delivery Dashboard{% endblock %}
+{% block title %}
+Laundry Dashboard
+{% endblock %}
+
 
 {% block content %}
 
-<h1> Delivery Dashboard</h1>
+<h1>Laundry Dashboard</h1>
 
 <p class="muted">
-Orders ready to be delivered to customers.
+Orders waiting for laundry processing.
 </p>
 
 
 <div class="dashboard-cards">
 
-    <div class="card">
-        <h3>Deliveries</h3>
-        <p>{{ orders|length }}</p>
+    <div class="card stat-card">
+    <h3>Orders Waiting</h3>
+    <h2>{{ orders|length }}</h2>
+    </div>
+    
+    <div class="card stat-card">
+    <h3>Staff</h3>
+    <h2>{{ session.full_name }}</h2>
+    </div>
+    
+    <div class="card stat-card">
+    <h3>Today's Date</h3>
+    <h2>{{ today }}</h2>
+    </div>
+    
     </div>
 
-</div>
 
 
 {% if orders %}
 
-<div class="table-wrap">
 
-<table>
+<div class="mobile-orders">
 
-<thead>
-<tr>
-    <th>Order No</th>
-    <th>Customer</th>
-    <th>Phone</th>
-    <th>Address</th>
-    <th>Status</th>
-    <th>Action</th>
-</tr>
-</thead>
-
-
-<tbody>
 
 {% for order in orders %}
 
-<tr>
 
-<td>{{ order.order_no }}</td>
+<div class="order-card">
 
-<td>{{ order.customer_name }}</td>
+<h3>
+{{ order.order_no }}
+</h3>
 
-<td>{{ order.phone }}</td>
 
-<td>{{ order.address }}</td>
+<p>
+<strong>Customer:</strong>
+{{ order.customer_name }}
+</p>
 
-<td>
+
+<p>
+    <strong>Address:</strong>
+    {{ order.address }}
+    </p>
+    
+    <p>
+    <strong>Service:</strong>
+    {{ order.service }}
+    </p>
+    
+    <p>
+    <strong>Weight:</strong>
+    {{ order.estimated_kg }} kg
+    </p>
+    
+    <p>
+    <strong>Amount:</strong>
+    R{{ "%.2f"|format(order.price) }}
+    </p>
+
+
+<p>
+<strong>Status:</strong>
+
 <span class="status">
 {{ order.status }}
 </span>
-</td>
+
+</p>
 
 
-<td>
 
-<form action="{{ url_for('delivery_status', order_id=order.id) }}" method="post">
+{% if order.status == "Collected" %}
 
+<form method="POST" action="{{ url_for('laundry_status', order_id=order.id) }}">
 
-{% if order.status == "Ready for Delivery" %}
-
-<input type="hidden" name="status" value="Out for Delivery">
-
-<button class="button">
-Start Delivery 
-</button>
-
-
-{% elif order.status == "Out for Delivery" %}
-
-<input type="hidden" name="status" value="Delivered">
+<input type="hidden" name="status" value="At Laundry">
 
 <button class="button">
-Complete Delivery 
+Received at Laundry
 </button>
+
+</form>
+
+
+{% elif order.status == "At Laundry" %}
+
+
+<form method="POST" action="{{ url_for('laundry_status', order_id=order.id) }}">
+
+<input type="hidden" name="status" value="Ready for Delivery">
+
+<button class="button">
+Ready for Delivery
+</button>
+
+</form>
 
 
 {% endif %}
 
 
-</form>
+</div>
 
-</td>
-
-</tr>
 
 {% endfor %}
 
-</tbody>
-
-</table>
 
 </div>
 
 
 {% else %}
 
+
 <div class="card">
 
-<h2>No deliveries available</h2>
+<h3>No Laundry Orders</h3>
 
 <p>
-There are currently no orders waiting for delivery.
+Waiting for collected orders from drivers.
 </p>
 
 </div>
+
 
 {% endif %}
 

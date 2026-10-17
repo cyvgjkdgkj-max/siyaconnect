@@ -1,195 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
+    <title>
+        {% block title %}
+        SiyaConnect
+        {% endblock %}
+    </title>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-<title>
-{% block title %}
-SiyaConnect
-{% endblock %}
-</title>
-
-
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-
 
 <body>
 
-
 <header class="topbar">
 
-<div class="brand">
+    <div class="brand">
+        <h2>SiyaConnect</h2>
+    </div>
 
-<h2>
- SiyaConnect
-</h2>
+    <nav>
 
-</div>
+        <a href="{{ url_for('home') }}">Home</a>
 
-
-<nav>
-
-
-<a href="{{ url_for('home') }}">
-Home
-</a>
+        {% if session.get("username") %}
 
 
-<a href="{{ url_for('order') }}">
-Book Pickup
-</a>
+    {% if session.get("role") == "Customer" %}
+
+        <a href="{{ url_for('order') }}">
+            Book Pickup
+        </a>
+
+    {% endif %}
 
 
-<a href="{{ url_for('track') }}">
-Track Order
-</a>
+    {% if session.get("role") == "Admin" %}
+
+        <a href="{{ url_for('admin') }}">
+            Dashboard
+        </a>
 
 
+    {% elif session.get("role") == "Driver" %}
 
-{% if session.get("username") %}
-
-
-<a href="{{ url_for('staff') }}">
-Dashboard
-</a>
+        <a href="{{ url_for('driver') }}">
+            Dashboard
+        </a>
 
 
-<a href="{{ url_for('logout') }}">
-Logout
-</a>
+    {% elif session.get("role") == "Laundry" %}
+
+        <a href="{{ url_for('laundry') }}">
+            Dashboard
+        </a>
+
+
+    {% elif session.get("role") == "Delivery" %}
+
+        <a href="{{ url_for('delivery') }}">
+            Dashboard
+        </a>
+
+
+    {% elif session.get("role") == "Customer" %}
+
+        <a href="{{ url_for('customer_dashboard') }}">
+            Dashboard
+        </a>
+
+    {% endif %}
+
+
+    <a href="{{ url_for('logout') }}">
+        Logout
+    </a>
 
 
 {% else %}
 
+            <a href="{{ url_for('login') }}">Login</a>
 
-<a href="{{ url_for('login') }}">
-Login
-</a>
+        {% endif %}
 
-
-{% endif %}
-
-
-
-</nav>
-
+    </nav>
 
 </header>
 
 
-
-
-
 {% if session.get("username") %}
-
 
 <div class="layout">
 
-
 <aside class="sidebar">
 
+    <h3>SiyaConnect</h3>
 
-<h3>
-SiyaConnect
-</h3>
+    <p>{{ session.get("role") }}</p>
 
-
-<p>
-{{ session.get("role") }}
-</p>
+    <p>
+        Welcome, {{ session.get("full_name") }}
+    </p>
 
 
+    {% if session.get("role") == "Admin" %}
 
-<a href="{{ url_for('staff') }}">
+<a href="{{ url_for('admin') }}">
 Dashboard
 </a>
-
-
-{% if session.get("role") == "Admin" %}
 
 <a href="{{ url_for('admin') }}">
 Orders
 </a>
 
-{% endif %}
+<a href="{{ url_for('customers') }}">
+Customers
+</a>
+
+<a href="#">
+Reports
+</a>
+
+<a href="#">
+Settings
+</a>
 
 
-
-{% if session.get("role") == "Driver" %}
+{% elif session.get("role") == "Driver" %}
 
 <a href="{{ url_for('driver') }}">
-Driver
+Dashboard
 </a>
 
-{% endif %}
 
-
-
-{% if session.get("role") == "Laundry" %}
+{% elif session.get("role") == "Laundry" %}
 
 <a href="{{ url_for('laundry') }}">
-Laundry
+Dashboard
 </a>
 
-{% endif %}
 
-
-
-{% if session.get("role") == "Delivery" %}
+{% elif session.get("role") == "Delivery" %}
 
 <a href="{{ url_for('delivery') }}">
-Delivery
+Dashboard
 </a>
 
+
+{% elif session.get("role") == "Customer" %}
+
+<a href="{{ url_for('customer_dashboard') }}">
+Dashboard
+</a>
+
+
 {% endif %}
+
 
 </aside>
 
 {% endif %}
 
+
 <main class="{% if session.get('username') %}content{% else %}public-content{% endif %}">
-{% with messages = get_flashed_messages(with_categories=true) %}
 
-{% if messages %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
 
-{% for category, message in messages %}
+        {% if messages %}
 
-<div class="alert {{ category }}">
-    {{ message }}
-</div>
+            {% for category, message in messages %}
 
-{% endfor %}
+                <div class="alert {{ category }}">
+                    {{ message }}
+                </div>
 
-{% endif %}
+            {% endfor %}
 
-{% endwith %}
+        {% endif %}
 
-
-{% block content %}
-
-{% endblock %}
+    {% endwith %}
 
 
-
+    {% block content %}
+    {% endblock %}
 
 
 </main>
 
+
 {% if session.get("username") %}
-</div>
+    </div>
 {% endif %}
 
-
-
-
 </body>
-
 </html>
+

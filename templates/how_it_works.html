@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+
+{% block title %}
+How SiyaConnect Works
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="welcome-box">
+
+<h1>
+How SiyaConnect Works
+</h1>
+
+<p class="muted">
+Laundry pickup and delivery made simple.
+</p>
+
+</div>
+
+
+
+<div class="dashboard-cards">
+
+
+<div class="card">
+
+<h2>
+01
+</h2>
+
+<h3>
+Create Account
+</h3>
+
+<p>
+Register your details and create your SiyaConnect account.
+</p>
+
+</div>
+
+
+
+
+<div class="card">
+
+<h2>
+02
+</h2>
+
+<h3>
+Book Pickup
+</h3>
+
+<p>
+Choose your pickup date, time, address and laundry service.
+</p>
+
+</div>
+
+
+
+
+
+<div class="card">
+
+<h2>
+03
+</h2>
+
+<h3>
+Track Progress
+</h3>
+
+<p>
+Follow your laundry from collection until delivery.
+</p>
+
+</div>
+
+
+
+
+
+<div class="card">
+
+<h2>
+04
+</h2>
+
+<h3>
+Receive Delivery
+</h3>
+
+<p>
+Your clean laundry is delivered back to you.
+</p>
+
+</div>
+
+
+
+</div>
+
+
+
+<div class="confirmation-box">
+
+
+<h2>
+Your Laundry Journey
+</h2>
+
+
+<p>
+
+Pickup Requested
+
+<br>
+↓
+
+<br>
+
+Collected
+
+<br>
+↓
+
+<br>
+
+At Laundry
+
+<br>
+↓
+
+<br>
+
+Ready For Delivery
+
+<br>
+↓
+
+<br>
+
+Out For Delivery
+
+<br>
+↓
+
+<br>
+
+Delivered
+
+</p>
+
+
+<a href="{{ url_for('register') }}"
+class="button">
+
+Create Account
+
+</a>
+
+
+</div>
+
+
+{% endblock %}

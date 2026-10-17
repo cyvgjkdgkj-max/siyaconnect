@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Walk-In Order
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="admin-head">
+
+    <div>
+        <h1>Create Walk-In Order</h1>
+
+        <p class="muted">
+            Add an order for a customer visiting the laundry.
+        </p>
+    </div>
+
+</div>
+
+
+<div class="card">
+
+<form method="POST">
+
+
+<label>
+Customer Name
+</label>
+
+<input 
+type="text"
+name="customer_name"
+required>
+
+
+
+<label>
+Phone Number
+</label>
+
+<input 
+type="text"
+name="phone"
+required>
+
+
+
+<label>
+Address
+</label>
+
+<textarea 
+name="address"
+required></textarea>
+
+
+
+<label>
+Pickup Date
+</label>
+
+<input
+type="date"
+name="pickup_date"
+value="{{ today }}"
+required>
+
+
+
+<label>
+Pickup Time
+</label>
+
+<input
+type="time"
+name="pickup_time"
+required>
+
+
+
+<label>
+Service
+</label>
+
+<select name="service" required>
+
+<option value="Wash & Fold">
+Wash & Fold
+</option>
+
+<option value="Ironing">
+Ironing
+</option>
+
+<option value="Dry Cleaning">
+Dry Cleaning
+</option>
+
+<option value="Express Laundry">
+Express Laundry
+</option>
+
+</select>
+
+
+
+<label>
+Estimated Weight (KG)
+</label>
+
+<input
+type="number"
+step="0.1"
+name="estimated_kg"
+placeholder="Example: 5"
+required>
+
+
+
+<label>
+Payment Method
+</label>
+
+<select name="payment_method">
+
+<option value="Cash">
+Cash
+</option>
+
+<option value="Card">
+Card
+</option>
+
+<option value="EFT">
+EFT
+</option>
+
+</select>
+
+
+
+<label>
+Notes
+</label>
+
+<textarea
+name="notes"
+placeholder="Extra instructions">
+</textarea>
+
+
+
+<br>
+
+<button class="button" type="submit">
+Create Walk-In Order
+</button>
+
+
+<a class="button" href="{{ url_for('admin') }}">
+Cancel
+</a>
+
+
+</form>
+
+</div>
+
+
+{% endblock %}

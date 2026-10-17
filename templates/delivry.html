@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block title %}Delivery Dashboard{% endblock %}
+
+{% block content %}
+
+<h1> Delivery Dashboard</h1>
+
+<p class="muted">
+Orders ready to be delivered to customers.
+</p>
+
+
+<div class="dashboard-cards">
+
+    <div class="card">
+        <h3>Deliveries</h3>
+        <p>{{ orders|length }}</p>
+    </div>
+
+</div>
+
+
+{% if orders %}
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+<tr>
+    <th>Order No</th>
+    <th>Customer</th>
+    <th>Phone</th>
+    <th>Address</th>
+    <th>Status</th>
+    <th>Action</th>
+</tr>
+</thead>
+
+
+<tbody>
+
+{% for order in orders %}
+
+<tr>
+
+<td>{{ order.order_no }}</td>
+
+<td>{{ order.customer_name }}</td>
+
+<td>{{ order.phone }}</td>
+
+<td>{{ order.address }}</td>
+
+<td>
+<span class="status">
+{{ order.status }}
+</span>
+</td>
+
+
+<td>
+
+<form action="{{ url_for('delivery_status', order_id=order.id) }}" method="post">
+
+
+{% if order.status == "Ready for Delivery" %}
+
+<input type="hidden" name="status" value="Out for Delivery">
+
+<button class="button">
+Start Delivery 
+</button>
+
+
+{% elif order.status == "Out for Delivery" %}
+
+<input type="hidden" name="status" value="Delivered">
+
+<button class="button">
+Complete Delivery 
+</button>
+
+
+{% endif %}
+
+
+</form>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+
+{% else %}
+
+<div class="card">
+
+<h2>No deliveries available</h2>
+
+<p>
+There are currently no orders waiting for delivery.
+</p>
+
+</div>
+
+{% endif %}
+
+
+{% endblock %}

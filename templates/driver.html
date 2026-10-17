@@ -12,14 +12,19 @@ Today's laundry collections
 
 <div class="dashboard-cards">
 
-    <div class="card">
-        <h3>New Pickups</h3>
-        <p>{{ orders|length }}</p>
+    <div class="card stat-card">
+        <h3>Waiting Pickups</h3>
+        <h2>{{ orders|length }}</h2>
     </div>
 
-    <div class="card">
+    <div class="card stat-card">
         <h3>Driver</h3>
-        <p>{{ session.username }}</p>
+        <h2>{{ session.full_name }}</h2>
+    </div>
+
+    <div class="card stat-card">
+        <h3>Today's Date</h3>
+        <h2>{{ today }}</h2>
     </div>
 
 </div>
@@ -32,15 +37,16 @@ Today's laundry collections
 
 <thead>
 
-<tr>
-    <th>Order No</th>
-    <th>Customer</th>
-    <th>Phone</th>
-    <th>Address</th>
-    <th>Pickup</th>
-    <th>Status</th>
-    <th>Action</th>
-</tr>
+    <tr>
+        <th>Order No</th>
+        <th>Customer</th>
+        <th>Phone</th>
+        <th>Address</th>
+        <th>Service</th>
+        <th>Pickup</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
 
 </thead>
 
@@ -50,7 +56,9 @@ Today's laundry collections
 
 <tr>
 
-<td>{{ order.order_no }}</td>
+    <td>
+        <strong>{{ order.order_no }}</strong>
+    </td>
 
 <td>{{ order.customer_name }}</td>
 
@@ -58,12 +66,13 @@ Today's laundry collections
 
 <td>{{ order.address }}</td>
 
-<td>{{ order.pickup_date }} {{ order.pickup_time }}</td>
+<td>{{ order.service }}</td>
 
+<td>{{ order.pickup_date }} {{ order.pickup_time }}</td>
 <td>
-<span class="status">
-{{ order.status }}
-</span>
+    <span class="status">
+        {{ order.status }}
+    </span>
 </td>
 
 <td>
@@ -74,23 +83,17 @@ Today's laundry collections
 
 <input type="hidden" name="status" value="Collected">
 
-<button class="action-btn success">
-Mark Collected
+<button type="submit" class="action-btn success">
+    Mark Collected
 </button>
 
 </form>
 
 {% else %}
 
-<form action="{{ url_for('driver_status', order_id=order.id) }}" method="post">
-
-<input type="hidden" name="status" value="Delivered">
-
-<button class="action-btn success">
-Complete Delivery
-</button>
-
-</form>
+<span class="status">
+Collected
+</span>
 
 {% endif %}
 

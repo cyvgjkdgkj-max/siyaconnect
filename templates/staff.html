@@ -71,8 +71,13 @@ def staff():
         "staff.html",
         orders=orders,
         role=role
-    )@app.route("/update_status/<int:order_id>", methods=["POST"])
-def update_status(order_id):
+    )
+    
+    
+    @app.route("/update_status/<int:order_id>", methods=["POST"])
+    def update_status(order_id):
+
+    
 
     if "username" not in session:
         return redirect(url_for("login"))
