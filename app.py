@@ -1,6 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, session
 from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
+import os
+import psycopg2
+from  psycopg2.extras import RealDictCursor
 from datetime import datetime
 import os
 import secrets
@@ -26,7 +29,8 @@ def add_header(response):
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-DB_PATH = os.path.join(BASE_DIR, "laundry.db")
+DATABASE_URL = os.environ.get("DATABASE_URL")
+DB_PATH = os.environ.get("DB_PATH", "laundry.db")
 
 @app.before_request
 def check_session():
@@ -50,15 +54,26 @@ def check_session():
 
 def db():
 
-    conn = sqlite3.connect(DB_PATH)
+    if DATABASE_URL:
 
-    conn.row_factory = sqlite3.Row
+        conn = psycopg2.connect(
+            DATABASE_URL,
+            cursor_factory=RealDictCursor
+        )
 
-    conn.execute(
-        "PRAGMA foreign_keys = ON"
-    )
+        return conn
 
-    return conn
+    else:
+
+        conn = sqlite3.connect(DB_PATH)
+
+        conn.row_factory = sqlite3.Row
+
+        conn.execute(
+            "PRAGMA foreign_keys = ON"
+        )
+
+        return conn
 
 
 
@@ -1839,4 +1854,4 @@ def print_order(order_no):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=False)
+    app.run(host="0.0.0.0", port=5000, debug=True)

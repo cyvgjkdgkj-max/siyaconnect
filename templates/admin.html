@@ -4,7 +4,9 @@
 Admin Dashboard
 {% endblock %}
 
+
 {% block content %}
+
 
 <div class="admin-head">
 
@@ -17,170 +19,281 @@ Admin Dashboard
 
 
     <div>
-
-        <a class="button" href="{{ url_for('order') }}">
-            + Customer Order
-        </a>
-
-
         <a class="button" href="{{ url_for('walk_in_order') }}">
             + Walk-in Order
         </a>
-
     </div>
 
 </div>
 
+
+
+<!-- SUMMARY CARDS -->
+
 <div class="dashboard-cards">
+
 
     <div class="card stat-card">
         <h3>Total Orders</h3>
         <h2>{{ total_orders }}</h2>
     </div>
 
+
     <div class="card stat-card">
         <h3>Total Revenue</h3>
-        <h2>R{{ "%.2f"|format(total_revenue) }}</h2>
+        <h2>
+            R{{ "%.2f"|format(total_revenue) }}
+        </h2>
     </div>
+
 
     <div class="card stat-card">
         <h3>Pending Orders</h3>
         <h2>{{ pending_orders }}</h2>
     </div>
 
+
     <div class="card stat-card">
-        <h3>Completed Orders</h3>
+        <h3>Completed</h3>
         <h2>{{ completed_orders }}</h2>
     </div>
+
 
 </div>
 
 
-<!-- SECOND ROW OF DASHBOARD CARDS -->
 
 <div class="dashboard-cards">
 
+
     <div class="card stat-card">
-        <h3>Total Customers</h3>
+        <h3>Customers</h3>
         <h2>{{ total_customers }}</h2>
     </div>
+
 
     <div class="card stat-card">
         <h3>Pickup Requests</h3>
         <h2>{{ pickup_requests }}</h2>
     </div>
 
+
     <div class="card stat-card">
         <h3>At Laundry</h3>
         <h2>{{ at_laundry }}</h2>
     </div>
+
 
     <div class="card stat-card">
         <h3>Out For Delivery</h3>
         <h2>{{ out_for_delivery }}</h2>
     </div>
 
+
 </div>
 
+
+
+
+<!-- SEARCH -->
 
 <div class="card">
 
-    <h2>Search Orders</h2>
+<h2>Search Orders</h2>
 
-    <form method="GET">
 
-        <input
-            type="text"
-            name="search"
-            value="{{ search }}"
-            placeholder="Order number, customer or phone">
+<form method="GET">
 
-        <select name="status">
 
-            <option value="" {% if status == "" %}selected{% endif %}>All Status</option>
+<input 
+type="text"
+name="search"
+value="{{ search }}"
+placeholder="Search order number, customer or phone">
 
-            <option value="Pickup Requested" {% if status == "Pickup Requested" %}selected{% endif %}>Pickup Requested</option>
 
-            <option value="Collected" {% if status == "Collected" %}selected{% endif %}>Collected</option>
 
-            <option value="At Laundry" {% if status == "At Laundry" %}selected{% endif %}>At Laundry</option>
+<select name="status">
 
-            <option value="Ready for Delivery" {% if status == "Ready for Delivery" %}selected{% endif %}>Ready for Delivery</option>
 
-            <option value="Out for Delivery" {% if status == "Out for Delivery" %}selected{% endif %}>Out for Delivery</option>
+<option value="" 
+{% if status == "" %}selected{% endif %}>
+All Status
+</option>
 
-            <option value="Delivered" {% if status == "Delivered" %}selected{% endif %}>Delivered</option>
 
-            <option value="Cancelled" {% if status == "Cancelled" %}selected{% endif %}>Cancelled</option>
+<option value="Pickup Requested"
+{% if status == "Pickup Requested" %}selected{% endif %}>
+Pickup Requested
+</option>
 
-        </select>
 
-        <button class="button" type="submit">
-            Search
-        </button>
+<option value="Collected"
+{% if status == "Collected" %}selected{% endif %}>
+Collected
+</option>
 
-    </form>
+
+<option value="At Laundry"
+{% if status == "At Laundry" %}selected{% endif %}>
+At Laundry
+</option>
+
+
+<option value="Ready for Delivery"
+{% if status == "Ready for Delivery" %}selected{% endif %}>
+Ready for Delivery
+</option>
+
+
+<option value="Out for Delivery"
+{% if status == "Out for Delivery" %}selected{% endif %}>
+Out for Delivery
+</option>
+
+
+<option value="Delivered"
+{% if status == "Delivered" %}selected{% endif %}>
+Delivered
+</option>
+
+
+<option value="Cancelled"
+{% if status == "Cancelled" %}selected{% endif %}>
+Cancelled
+</option>
+
+
+</select>
+
+
+<button class="button">
+Search
+</button>
+
+
+</form>
 
 </div>
 
 
-<div class="orders-table">
 
-    <h2>All Orders</h2>
 
-    <div class="table-wrap">
 
-        <table>
+<!-- ORDERS -->
 
-            <thead>
+<div class="card">
 
-                <tr>
-                    <th>Order No</th>
-                    <th>Customer</th>
-                    <th>Service</th>
-                    <th>Pickup</th>
-                    <th>Price</th>
-                    <th>Payment</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
 
-            </thead>
+<h2>All Orders</h2>
 
-            <tbody>
 
-            {% if orders %}
 
-                {% for order in orders %}
+<div class="table-wrap">
 
-                <tr>
 
-                    <td>
-                        <strong>{{ order.order_no }}</strong><br>
-                        <small>{{ order.created_at }}</small>
-                    </td>
+<table>
 
-                    <td>
-                        {{ order.customer_name }}<br>
-                        {{ order.phone }}
-                    </td>
 
-                    <td>{{ order.service }}</td>
+<thead>
 
-                    <td>
-                        {{ order.pickup_date }}<br>
-                        {{ order.pickup_time }}
-                    </td>
+<tr>
 
-                    <td>
-                        R{{ "%.2f"|format(order.price) }}
-                    </td>
+<th>Order</th>
+<th>Customer</th>
+<th>Service</th>
+<th>Pickup</th>
+<th>Price</th>
+<th>Payment</th>
+<th>Status</th>
+<th>Actions</th>
 
-                    <td>
+</tr>
 
-<form action="{{ url_for('payment_status', order_id=order.id) }}" method="POST">
+</thead>
+
+
+
+
+<tbody>
+
+
+{% for order in orders %}
+
+
+<tr>
+
+
+<td>
+
+<strong>
+{{ order.order_no }}
+</strong>
+
+<br>
+
+<small>
+{{ order.created_at }}
+</small>
+
+
+</td>
+
+
+
+
+<td>
+
+{{ order.customer_name }}
+
+<br>
+
+{{ order.phone }}
+
+</td>
+
+
+
+
+<td>
+{{ order.service }}
+</td>
+
+
+
+
+<td>
+
+{{ order.pickup_date }}
+
+<br>
+
+{{ order.pickup_time }}
+
+</td>
+
+
+
+
+<td>
+
+R{{ "%.2f"|format(order.price) }}
+
+</td>
+
+
+
+
+<td>
+
+
+<form 
+action="{{ url_for('payment_status', order_id=order.id) }}"
+method="POST">
+
 
 <select name="payment_status">
+
 
 <option value="Pending"
 {% if order.payment_status == "Pending" %}selected{% endif %}>
@@ -209,79 +322,150 @@ Refunded
 </select>
 
 
-<button class="button" type="submit">
+<button class="button">
 Save
 </button>
 
 
 </form>
 
-</td> 
-                    
-                    <td>
-                        <span class="status">
-                            {{ order.status }}
-                        </span>
-                    </td>
 
-                    <td>
+</td>
 
-                        <form action="{{ url_for('update_status', order_id=order.id) }}" method="POST">
 
-                            <select name="status">
 
-                                <option value="Pickup Requested" {% if order.status=="Pickup Requested" %}selected{% endif %}>Pickup Requested</option>
 
-                                <option value="Collected" {% if order.status=="Collected" %}selected{% endif %}>Collected</option>
+<td>
 
-                                <option value="At Laundry" {% if order.status=="At Laundry" %}selected{% endif %}>At Laundry</option>
+<span class="status">
 
-                                <option value="Ready for Delivery" {% if order.status=="Ready for Delivery" %}selected{% endif %}>Ready for Delivery</option>
+{{ order.status }}
 
-                                <option value="Out for Delivery" {% if order.status=="Out for Delivery" %}selected{% endif %}>Out for Delivery</option>
+</span>
 
-                                <option value="Delivered" {% if order.status=="Delivered" %}selected{% endif %}>Delivered</option>
 
-                                <option value="Cancelled" {% if order.status=="Cancelled" %}selected{% endif %}>Cancelled</option>
+</td>
 
-                            </select>
 
-                            <button class="button" type="submit">
-                                Update
-                            </button>
 
-                        </form>
 
-                        <br>
 
-                        <a class="button"
-                           href="{{ url_for('print_order', order_no=order.order_no) }}"
-                           target="_blank">
-                            Print
-                        </a>
+<td>
 
-                    </td>
 
-                </tr>
+<form
+action="{{ url_for('update_status', order_id=order.id) }}"
+method="POST">
 
-                {% endfor %}
 
-            {% else %}
+<select name="status">
 
-                <tr>
-                    <td colspan="7">
-                        No orders found.
-                    </td>
-                </tr>
 
-            {% endif %}
+<option value="Pickup Requested"
+{% if order.status == "Pickup Requested" %}selected{% endif %}>
+Pickup Requested
+</option>
 
-            </tbody>
 
-        </table>
+<option value="Collected"
+{% if order.status == "Collected" %}selected{% endif %}>
+Collected
+</option>
 
-    </div>
+
+<option value="At Laundry"
+{% if order.status == "At Laundry" %}selected{% endif %}>
+At Laundry
+</option>
+
+
+<option value="Ready for Delivery"
+{% if order.status == "Ready for Delivery" %}selected{% endif %}>
+Ready for Delivery
+</option>
+
+
+<option value="Out for Delivery"
+{% if order.status == "Out for Delivery" %}selected{% endif %}>
+Out for Delivery
+</option>
+
+
+<option value="Delivered"
+{% if order.status == "Delivered" %}selected{% endif %}>
+Delivered
+</option>
+
+
+<option value="Cancelled"
+{% if order.status == "Cancelled" %}selected{% endif %}>
+Cancelled
+</option>
+
+
+</select>
+
+
+<button class="button">
+Update
+</button>
+
+
+</form>
+
+
+
+
+<br>
+
+
+<a class="button"
+href="{{ url_for('print_order', order_no=order.order_no) }}"
+target="_blank">
+
+Print
+
+</a>
+
+
+</td>
+
+
+
+</tr>
+
+
+
+{% else %}
+
+
+<tr>
+
+<td colspan="8">
+
+No orders found.
+
+</td>
+
+</tr>
+
+
+{% endfor %}
+
+
+
+</tbody>
+
+
+</table>
+
 
 </div>
+
+
+</div>
+
+
+
 
 {% endblock %}
