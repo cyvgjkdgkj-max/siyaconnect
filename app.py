@@ -129,27 +129,75 @@ def init_db():
     conn = db()
 
     if DATABASE_URL:
-        cursor = conn.cursor()
+        cursor = conn.cursor(
+            cursor_factory=RealDictCursor
+        )
     else:
         cursor = conn
 
+
+    # =========================
+    # ORDERS TABLE
+    # =========================
+
     cursor.execute("""
-CREATE TABLE IF NOT EXISTS status_history (
+    CREATE TABLE IF NOT EXISTS orders (
 
-    id SERIAL PRIMARY KEY,
+        id SERIAL PRIMARY KEY,
 
-    order_id INTEGER NOT NULL,
+        order_no TEXT UNIQUE NOT NULL,
 
-    status TEXT NOT NULL,
+        customer_name TEXT NOT NULL,
 
-    changed_by INTEGER,
+        phone TEXT NOT NULL,
 
-    changed_at TEXT,
+        address TEXT NOT NULL,
 
-    FOREIGN KEY(order_id) REFERENCES orders(id)
+        pickup_date TEXT NOT NULL,
 
-)
-""")
+        pickup_time TEXT NOT NULL,
+
+        service TEXT NOT NULL,
+
+        estimated_kg REAL DEFAULT 0,
+
+        price REAL DEFAULT 0,
+
+        payment_method TEXT,
+
+        payment_status TEXT DEFAULT 'Pending',
+
+        status TEXT DEFAULT 'Pickup Requested',
+
+        notes TEXT,
+
+        created_at TEXT,
+
+        user_id INTEGER
+
+    )
+    """)
+
+
+    # THEN status_history after orders
+
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS status_history (
+
+        id SERIAL PRIMARY KEY,
+
+        order_id INTEGER NOT NULL,
+
+        status TEXT NOT NULL,
+
+        changed_by INTEGER,
+
+        changed_at TEXT,
+
+        FOREIGN KEY(order_id) REFERENCES orders(id)
+
+    )
+    """)
 
     # =========================
     # ORDERS TABLE
