@@ -30,7 +30,54 @@ def add_header(response):
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 DATABASE_URL = os.environ.get("DATABASE_URL")
-DB_PATH = os.environ.get("DB_PATH", "laundry.db")
+DB_PATH = "laundry.db"
+
+
+def db():
+    if DATABASE_URL:
+        return psycopg2.connect(DATABASE_URL, cursor_factory=RealDictCursor)
+
+    conn = sqlite3.connect(DB_PATH)
+    conn.row_factory = sqlite3.Row
+    conn.execute("PRAGMA foreign_keys = ON")
+    return conn
+
+def fetchone(query, params=()):
+    conn = db()
+    cur = conn.cursor() if DATABASE_URL else conn
+
+    cur.execute(query, params)
+    row = cur.fetchone()
+
+    conn.close()
+    return row
+
+
+def fetchall(query, params=()):
+    conn = db()
+    cur = conn.cursor() if DATABASE_URL else conn
+
+    cur.execute(query, params)
+    rows = cur.fetchall()
+
+    conn.close()
+    return rows
+
+
+def execute(query, params=()):
+    conn = db()
+    cur = conn.cursor() if DATABASE_URL else conn
+
+    cur.execute(query, params)
+    conn.commit()
+
+    if DATABASE_URL:
+        new_id = cur.fetchone()["id"] if cur.description else None
+    else:
+        new_id = cur.lastrowid
+
+    conn.close()
+    return new_id
 
 @app.before_request
 def check_session():
@@ -57,11 +104,11 @@ def db():
     if DATABASE_URL:
 
         conn = psycopg2.connect(
-            DATABASE_URL,
-            cursor_factory=RealDictCursor
+            DATABASE_URL
         )
 
         return conn
+
 
     else:
 
@@ -81,7 +128,12 @@ def init_db():
 
     conn = db()
 
-    conn.execute("""
+    if DATABASE_URL:
+        cursor = conn.cursor()
+    else:
+        cursor = conn
+
+    cursor.execute("""
 CREATE TABLE IF NOT EXISTS status_history (
 
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -103,7 +155,7 @@ CREATE TABLE IF NOT EXISTS status_history (
     # ORDERS TABLE
     # =========================
 
-    conn.execute("""
+    cursor.execute("""
     CREATE TABLE IF NOT EXISTS orders (
 
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -147,7 +199,7 @@ CREATE TABLE IF NOT EXISTS status_history (
     # USERS TABLE
     # =========================
 
-    conn.execute("""
+    cursor.execute("""
     CREATE TABLE IF NOT EXISTS users (
 
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -248,8 +300,8 @@ CREATE TABLE IF NOT EXISTS status_history (
 
         if not user:
 
-            conn.execute(
-                """
+           cursor.execute("""
+                
                 INSERT INTO users
                 (
                     username,
@@ -960,7 +1012,7 @@ def history(order_no):
 
     conn = db()
 
-    order = conn.execute("""
+    order = cursor.execute("""
         SELECT *
         FROM orders
         WHERE order_no=?
@@ -971,7 +1023,7 @@ def history(order_no):
         conn.close()
         return "Order not found", 404
 
-    history = conn.execute("""
+    history = cursor.execute("""
         SELECT *
         FROM status_history
         WHERE order_id=?
@@ -1663,7 +1715,7 @@ def delivery():
 
     conn = db()
 
-    orders = conn.execute("""
+    orders = cursor.execute("""
         SELECT *
         FROM orders
         WHERE status IN (
@@ -1673,19 +1725,19 @@ def delivery():
         ORDER BY pickup_date, pickup_time
     """).fetchall()
 
-    ready_count = conn.execute("""
+    ready_count = cursor.execute("""
         SELECT COUNT(*)
         FROM orders
         WHERE status='Ready for Delivery'
     """).fetchone()[0]
 
-    out_count = conn.execute("""
+    out_count = cursor.execute("""
         SELECT COUNT(*)
         FROM orders
         WHERE status='Out for Delivery'
     """).fetchone()[0]
 
-    delivered_count = conn.execute("""
+    delivered_count = cursor.execute("""
         SELECT COUNT(*)
         FROM orders
         WHERE status='Delivered'
