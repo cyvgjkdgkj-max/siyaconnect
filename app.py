@@ -34,13 +34,26 @@ DB_PATH = "laundry.db"
 
 
 def db():
-    if DATABASE_URL:
-        return psycopg2.connect(DATABASE_URL, cursor_factory=RealDictCursor)
 
-    conn = sqlite3.connect(DB_PATH)
-    conn.row_factory = sqlite3.Row
-    conn.execute("PRAGMA foreign_keys = ON")
-    return conn
+    if DATABASE_URL:
+
+        conn = psycopg2.connect(
+            DATABASE_URL
+        )
+
+        return conn
+
+    else:
+
+        conn = sqlite3.connect(DB_PATH)
+
+        conn.row_factory = sqlite3.Row
+
+        conn.execute(
+            "PRAGMA foreign_keys = ON"
+        )
+
+        return conn
 
 def fetchone(query, params=()):
     conn = db()
@@ -129,9 +142,7 @@ def init_db():
     conn = db()
 
     if DATABASE_URL:
-        cursor = conn.cursor(
-            cursor_factory=RealDictCursor
-        )
+        cursor = conn.cursor()
     else:
         cursor = conn
 
@@ -335,18 +346,20 @@ CREATE TABLE IF NOT EXISTS notifications (
     for username, password, role, full_name, phone in default_users:
 
 
-        user = conn.execute(
-            """
-            SELECT id
-            FROM users
-            WHERE username=?
-            """,
-            (username,)
-        ).fetchone()
+       cursor.execute(
+    """
+    SELECT id
+    FROM users
+    WHERE username=%s
+    """,
+    (username,)
+)
+
+    user = cursor.fetchone()
 
 
 
-        if not user:
+    if not user:
 
            cursor.execute("""
                 
