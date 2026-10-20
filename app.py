@@ -136,7 +136,7 @@ def init_db():
     cursor.execute("""
 CREATE TABLE IF NOT EXISTS status_history (
 
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
 
     order_id INTEGER NOT NULL,
 
@@ -158,7 +158,7 @@ CREATE TABLE IF NOT EXISTS status_history (
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS orders (
 
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id SERIAL PRIMARY KEY,
 
         order_no TEXT UNIQUE NOT NULL,
 
@@ -202,7 +202,7 @@ CREATE TABLE IF NOT EXISTS status_history (
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS users (
 
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id SERIAL PRIMARY KEY,
 
         username TEXT UNIQUE NOT NULL,
 
@@ -228,7 +228,7 @@ CREATE TABLE IF NOT EXISTS status_history (
     conn.execute("""
     CREATE TABLE IF NOT EXISTS notifications (
 
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id SERIAL PRIMARY KEY,
 
         user_id INTEGER NOT NULL,
 
