@@ -273,21 +273,21 @@ def init_db():
     # NOTIFICATIONS TABLE
     # =========================
 
-    conn.execute("""
-    CREATE TABLE IF NOT EXISTS notifications (
+    cursor.execute("""
+CREATE TABLE IF NOT EXISTS notifications (
 
-        id SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
 
-        user_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
 
-        message TEXT NOT NULL,
+    message TEXT NOT NULL,
 
-        created_at TEXT,
+    created_at TEXT,
 
-        is_read INTEGER DEFAULT 0
+    is_read INTEGER DEFAULT 0
 
-    )
-    """)
+)
+""")
 
 
 
