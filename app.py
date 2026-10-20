@@ -346,17 +346,29 @@ CREATE TABLE IF NOT EXISTS notifications (
     for username, password, role, full_name, phone in default_users:
 
 
-       cursor.execute(
-    """
-    SELECT id
-    FROM users
-    WHERE username=%s
-    """,
-    (username,)
-)
+     if DATABASE_URL:
 
-    user = cursor.fetchone()
+        cursor.execute(
+        """
+        SELECT id
+        FROM users
+        WHERE username=%s
+        """,
+        (username,)
+    )
 
+        user = cursor.fetchone()
+
+    else:
+
+        user = conn.execute(
+        """
+        SELECT id
+        FROM users
+        WHERE username=?
+        """,
+        (username,)
+    ).fetchone()
 
 
     if not user:
