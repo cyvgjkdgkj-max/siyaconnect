@@ -361,14 +361,29 @@ CREATE TABLE IF NOT EXISTS notifications (
 
     else:
 
-        user = conn.execute(
+     if DATABASE_URL:
+
+        cursor.execute(
+          """
+          SELECT id
+          FROM users
+          WHERE username=%s
+          """,
+          (username,)
+        )
+
+        user = cursor.fetchone()
+
+     else:
+
+      user = conn.execute(
         """
         SELECT id
         FROM users
         WHERE username=?
         """,
         (username,)
-    ).fetchone()
+     ).fetchone()
 
 
     if not user:
